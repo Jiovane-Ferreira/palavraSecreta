@@ -2,7 +2,7 @@
 import './App.css';
 
 // Data
-import { wordlist } from './data/data';
+import { dataList } from './data/data';
 
 //React
 import { useState, useCallback, useEffect } from 'react';
@@ -22,21 +22,23 @@ const stage = [
 function App() {
 
   const [gameStage, setGameStage] = useState(stage[0].name);
-  const [palavras] = useState(wordlist);
+  const [data] = useState(dataList);
 
    // pega a palavra secreta 
    const [secretWord, setSecretWord] = useState("");
    const [category, setCategory] = useState("");
    const [letters, setLetters] = useState([]); 
 
+   
    function pickWordAndCategory() {
 
-    const categories = Object.keys(palavras);
+    const categories = Object.keys(data);
 
     const category = categories[Math.floor(Math.random() * Object.keys(categories).length)];
-    const palavra = palavras[category][Math.floor(Math.random() * palavras[category].length)];
+    const palavra = data[category][Math.floor(Math.random() * data[category].length)];
     
     return {palavra, category}
+
   }
   
 
@@ -44,8 +46,15 @@ function App() {
   function startGame() {
 
     const { palavra, category } = pickWordAndCategory();
+    
+    let letras = palavra.split("");
+    letras = letras.map((letra) => (letra.toLowerCase()));
+
+    setSecretWord(palavra);
+    setCategory(category);
+    setLetters(letras);
+
     setGameStage(stage[1].name);
-    console.log(palavra, category);
 
   };
 
