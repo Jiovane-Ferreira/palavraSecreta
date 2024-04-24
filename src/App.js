@@ -26,8 +26,13 @@ function App() {
 
    // pega a palavra secreta 
    const [secretWord, setSecretWord] = useState("");
-   const [category, setCategory] = useState("");
+   const [pickedCategory, setPickedCategory] = useState("");
    const [letters, setLetters] = useState([]); 
+
+   const [guessedLetters, setGuessedLetters] = useState([]);
+   const [wrongLetters, setWrongLetters] = useState([]);
+   const [guesses, setGuesses] = useState(3);
+   const [score, setScore] = useState(0);
 
    
    function pickWordAndCategory() {
@@ -51,7 +56,7 @@ function App() {
     letras = letras.map((letra) => (letra.toLowerCase()));
 
     setSecretWord(palavra);
-    setCategory(category);
+    setPickedCategory(category);
     setLetters(letras);
 
     setGameStage(stage[1].name);
@@ -74,11 +79,22 @@ function App() {
 
   return (
     <div className="App">
-
       {gameStage === 'start' && <StartScreen startGame={startGame} />}
-      {gameStage === 'game' && <Game verifyLetter={verifyLetter} />}
-      {gameStage === 'end' && <EndGame retry={retry} />}
-      
+
+      {gameStage === 'game' && (
+        <Game
+          verifyLetter={verifyLetter} 
+          secretWord={secretWord} 
+          pickedCategory={pickedCategory}
+          letters={letters}
+          guessedLetters={guessedLetters}
+          wrongLetters={wrongLetters}
+          guesses={guesses}
+          score={score}
+        />
+       )}
+       
+      {gameStage === 'end' && <EndGame retry={retry} />}      
     </div>
   );
 }
