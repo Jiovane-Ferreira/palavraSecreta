@@ -48,6 +48,7 @@ function App() {
   
 
   // Inicia o jogo
+
   function startGame() {
 
     const { palavra, category } = pickWordAndCategory();
@@ -58,7 +59,6 @@ function App() {
     setSecretWord(palavra);
     setPickedCategory(category);
     setLetters(letras);
-
     setGameStage(stage[1].name);
 
   };
@@ -66,7 +66,26 @@ function App() {
   // processa o input de letras
   
   const verifyLetter = (letra) => {
+
     console.log(letra);
+    const letraNormalizada = letra.toLowerCase();
+
+    if (guessedLetters.includes(letraNormalizada) || wrongLetters.includes(letraNormalizada)) {
+      return;
+    }
+
+    if(letters.includes(letraNormalizada)) {
+
+      setGuessedLetters((actualGuessed) => [
+        ...actualGuessed, letraNormalizada
+      ])
+
+    } else {
+      setWrongLetters((actualWrong) => [
+        ...actualWrong, letraNormalizada
+      ])
+
+    }
 
   }
 
