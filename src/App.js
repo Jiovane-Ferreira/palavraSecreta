@@ -65,8 +65,8 @@ function App() {
 
   // processa o input de letras
   
-  const verifyLetter = () => {
-    setGameStage(stage[2].name);
+  const verifyLetter = (letra) => {
+    console.log(letra);
 
   }
 
